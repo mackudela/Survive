@@ -6,7 +6,12 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
+#include "Game.h"
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    Game game;
+    game.run();
+
+    return 0;
 }
