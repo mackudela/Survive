@@ -1,27 +1,38 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include "Game.h"
 
-Game::Game() : mainWindow(sf::VideoMode(800, 600), "Survive"), player()
+Game::Game() : 
+	mainWindow(sf::VideoMode(800, 600), "Survive"), 
+	player(), 
+	playerTexture(),
+	isMovingUp(false),
+	isMovingDown(false),
+	isMovingLeft(false),
+	isMovingRight(false)
 {
-	isMovingUp = false;
-	isMovingDown = false;
-	isMovingLeft = false;
-	isMovingRight = false;
-	player.setRadius(40.f);
+	if (!playerTexture.loadFromFile("Media/Textures/hooman.png"))
+	{
+		std::cout << "Wrong player texture file\n";
+	}
+	player.setTexture(playerTexture);
 	player.setPosition(100.f, 100.f);
-	player.setFillColor(sf::Color::Cyan);
+	mainWindow.setVerticalSyncEnabled(true);
 }
 
 void Game::run()
 {
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	while (mainWindow.isOpen())
 	{
 		processEvents();
-		update();
+		timeSinceLastUpdate += clock.restart();
+		while (timeSinceLastUpdate > timePerFrame)
+		{
+			timeSinceLastUpdate -= timePerFrame;
+			processEvents();
+			update(timePerFrame);
+
+		}
 		render();
 	}
 }
@@ -50,19 +61,19 @@ void Game::processEvents()
 }
 
 //Updates the game logic
-void Game::update()
+void Game::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
 	if (isMovingUp)
-		movement.y -= 1.f;
+		movement.y -= playerSpeed;
 	if (isMovingDown)
-		movement.y += 1.f;
+		movement.y += playerSpeed;
 	if (isMovingLeft)
-		movement.x -= 1.f;
+		movement.x -= playerSpeed;
 	if (isMovingRight)
-		movement.x += 1.f;
+		movement.x += playerSpeed;
 
-	player.move(movement);
+	player.move(movement * deltaTime.asSeconds());
 }
 
 //Renders game to the screen

@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -13,15 +14,18 @@ public:
 	void run();
 private:
 	void processEvents();
-	void update();
+	void update(sf::Time);
 	void render();
 
 	void handlePlayerInput(sf::Keyboard::Key, bool);
 private:
 	sf::RenderWindow mainWindow;
-	sf::CircleShape player;
+	sf::Texture playerTexture;
+	sf::Sprite player;
 	bool isMovingUp;
 	bool isMovingDown;
 	bool isMovingLeft;
 	bool isMovingRight;
+	const float playerSpeed = 100.f;
+	const sf::Time timePerFrame = sf::seconds(1.f / 60.f);
 };
