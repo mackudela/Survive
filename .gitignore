@@ -40,3 +40,12 @@ cmake-build-*/
 .vscode/
 .idea/
 .vs/
+
+*.db
+*.ipch
+Survive/.vs/Survive/v17/.suo
+*.ilk
+*.log
+*.tlog
+*.idb
+*.pdb
