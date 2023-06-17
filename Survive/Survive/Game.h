@@ -8,7 +8,7 @@
 #include <SFML/Network.hpp>
 
 class Game
-{
+{ 
 public:
 	Game();
 	void run();
