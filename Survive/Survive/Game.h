@@ -14,10 +14,10 @@ public:
 	void run();
 private:
 	void processEvents();
-	void update(sf::Time);
+	void update(sf::Time time);
 	void render();
 
-	void handlePlayerInput(sf::Keyboard::Key, bool);
+	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 private:
 	sf::RenderWindow mainWindow;
 	sf::Texture playerTexture;
