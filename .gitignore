@@ -49,3 +49,5 @@ Survive/.vs/Survive/v17/.suo
 *.tlog
 *.idb
 *.pdb
+Survive/Survive/x64/Debug/Survive.tlog/Survive.lastbuildstate
+*.recipe
