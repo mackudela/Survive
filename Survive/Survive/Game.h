@@ -7,6 +7,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
+#include "Player.h"
+
 class Game
 { 
 public:
@@ -20,12 +22,10 @@ private:
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 private:
 	sf::RenderWindow mainWindow;
-	sf::Texture playerTexture;
-	sf::Sprite player;
+	Player player;
 	bool isMovingUp;
 	bool isMovingDown;
 	bool isMovingLeft;
 	bool isMovingRight;
-	const float playerSpeed = 100.f;
 	const sf::Time timePerFrame = sf::seconds(1.f / 60.f);
 };

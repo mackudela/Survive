@@ -5,8 +5,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <iostream>
 
-class Entity
+class Entity : public sf::Sprite
 {
 public:
 	void setVelocity(sf::Vector2f velocity);

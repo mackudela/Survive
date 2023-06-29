@@ -3,17 +3,17 @@
 Game::Game() : 
 	mainWindow(sf::VideoMode(800, 600), "Survive"), 
 	player(), 
-	playerTexture(),
+	//playerTexture(),
 	isMovingUp(false),
 	isMovingDown(false),
 	isMovingLeft(false),
 	isMovingRight(false)
 {
-	if (!playerTexture.loadFromFile("Media/Textures/hooman.png"))
+	/*if (!playertexture.loadfromfile("media/textures/hooman.png"))
 	{
-		std::cout << "Wrong player texture file\n";
-	}
-	player.setTexture(playerTexture);
+		std::cout << "wrong player texture file\n";
+	}*/
+	//player.setTexture(playerTexture);
 	player.setPosition(100.f, 100.f);
 	mainWindow.setVerticalSyncEnabled(true);
 }
@@ -65,13 +65,13 @@ void Game::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
 	if (isMovingUp)
-		movement.y -= playerSpeed;
+		movement.y -= player.getPlayerSpeed();
 	if (isMovingDown)
-		movement.y += playerSpeed;
+		movement.y += player.getPlayerSpeed();
 	if (isMovingLeft)
-		movement.x -= playerSpeed;
+		movement.x -= player.getPlayerSpeed();
 	if (isMovingRight)
-		movement.x += playerSpeed;
+		movement.x += player.getPlayerSpeed();
 
 	player.move(movement * deltaTime.asSeconds());
 }
