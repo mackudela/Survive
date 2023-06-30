@@ -1,28 +1,25 @@
 #include "Game.h"
 
 Game::Game() : 
-	mainWindow(sf::VideoMode(800, 600), "Survive"), 
 	player(), 
-	//playerTexture(),
 	isMovingUp(false),
 	isMovingDown(false),
 	isMovingLeft(false),
 	isMovingRight(false)
 {
-	/*if (!playertexture.loadfromfile("media/textures/hooman.png"))
-	{
-		std::cout << "wrong player texture file\n";
-	}*/
-	//player.setTexture(playerTexture);
+	initWindow();
 	player.setPosition(100.f, 100.f);
-	mainWindow.setVerticalSyncEnabled(true);
+}
+
+Game::~Game()
+{
 }
 
 void Game::run()
 {
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	while (mainWindow.isOpen())
+	while (mainWindow->isOpen())
 	{
 		processEvents();
 		timeSinceLastUpdate += clock.restart();
@@ -37,11 +34,18 @@ void Game::run()
 	}
 }
 
+void Game::initWindow()
+{
+	mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Survive", sf::Style::Default | sf::Style::Close);
+	mainWindow->setVerticalSyncEnabled(true);
+
+}
+
 //Handles user input
 void Game::processEvents()
 {
 	sf::Event event;
-	while (mainWindow.pollEvent(event))
+	while (mainWindow->pollEvent(event))
 	{
 		switch (event.type)
 		{
@@ -52,7 +56,7 @@ void Game::processEvents()
 				handlePlayerInput(event.key.code, false);
 				break;
 			case sf::Event::Closed:
-				mainWindow.close();
+				mainWindow->close();
 				break;
 			default:
 				break;
@@ -79,9 +83,9 @@ void Game::update(sf::Time deltaTime)
 //Renders game to the screen
 void Game::render()
 {
-	mainWindow.clear();
-	mainWindow.draw(player);
-	mainWindow.display();
+	mainWindow->clear();
+	mainWindow->draw(player);
+	mainWindow->display();
 }
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)

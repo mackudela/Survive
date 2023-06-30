@@ -13,15 +13,16 @@ class Game
 { 
 public:
 	Game();
+	~Game();
 	void run();
 private:
+	void initWindow();
 	void processEvents();
 	void update(sf::Time time);
 	void render();
-
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-private:
-	sf::RenderWindow mainWindow;
+
+	sf::RenderWindow* mainWindow;
 	Player player;
 	bool isMovingUp;
 	bool isMovingDown;
