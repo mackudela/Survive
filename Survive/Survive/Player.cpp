@@ -41,5 +41,5 @@ void Player::render(sf::RenderTarget& target)
 
 void Player::move(const float x, const float y)
 {
-	sprite.move(playerSpeed * x, playerSpeed * y);
+	sprite.move(x, y);
 }
