@@ -1,18 +1,19 @@
 #include "Game.h"
 
 Game::Game() : 
-	player(), 
 	isMovingUp(false),
 	isMovingDown(false),
 	isMovingLeft(false),
 	isMovingRight(false)
 {
 	initWindow();
-	player.setPosition(100.f, 100.f);
+	initPlayer();
 }
 
 Game::~Game()
 {
+	delete mainWindow;
+	delete player;
 }
 
 void Game::run()
@@ -37,8 +38,12 @@ void Game::run()
 void Game::initWindow()
 {
 	mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Survive", sf::Style::Default | sf::Style::Close);
-	mainWindow->setVerticalSyncEnabled(true);
+	mainWindow->setVerticalSyncEnabled(false);
+}
 
+void Game::initPlayer()
+{
+	player = new Player();
 }
 
 //Handles user input
@@ -69,22 +74,25 @@ void Game::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
 	if (isMovingUp)
-		movement.y -= player.getPlayerSpeed();
+		movement.y -= player->getPlayerSpeed();
 	if (isMovingDown)
-		movement.y += player.getPlayerSpeed();
+		movement.y += player->getPlayerSpeed();
 	if (isMovingLeft)
-		movement.x -= player.getPlayerSpeed();
+		movement.x -= player->getPlayerSpeed();
 	if (isMovingRight)
-		movement.x += player.getPlayerSpeed();
+		movement.x += player->getPlayerSpeed();
 
-	player.move(movement * deltaTime.asSeconds());
+	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
 }
 
 //Renders game to the screen
 void Game::render()
 {
 	mainWindow->clear();
-	mainWindow->draw(player);
+
+	//draw everything
+	player->render(*mainWindow);
+
 	mainWindow->display();
 }
 

@@ -7,7 +7,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 
-class Entity : public sf::Sprite
+class Entity
 {
 public:
 	void setVelocity(sf::Vector2f velocity);

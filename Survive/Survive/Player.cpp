@@ -2,19 +2,44 @@
 
 Player::Player()
 {
-	this->initVariables();
+	initTexture();
+	initSprite();
+	initVariables();
 }
 
 void Player::initVariables()
+{
+
+}
+
+float Player::getPlayerSpeed()
+{
+	return playerSpeed;
+}
+
+void Player::initTexture()
 {
 	if (!texture.loadFromFile("media/textures/hooman.png"))
 	{
 		std::cout << "Could not load Player texture file\n";
 	}
-	this->setTexture(texture);
 }
 
-float Player::getPlayerSpeed()
+void Player::initSprite()
 {
-	return this->playerSpeed;
+	sprite.setTexture(texture);
+}
+
+void Player::update()
+{
+}
+
+void Player::render(sf::RenderTarget& target)
+{
+	target.draw(sprite);
+}
+
+void Player::move(const float x, const float y)
+{
+	sprite.move(playerSpeed * x, playerSpeed * y);
 }

@@ -1,12 +1,6 @@
 #pragma once
 #include <iostream>
 
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-
 #include "Player.h"
 
 class Game
@@ -17,13 +11,15 @@ public:
 	void run();
 private:
 	void initWindow();
+	void initPlayer();
 	void processEvents();
 	void update(sf::Time time);
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+	
 
 	sf::RenderWindow* mainWindow;
-	Player player;
+	Player* player;
 	bool isMovingUp;
 	bool isMovingDown;
 	bool isMovingLeft;
