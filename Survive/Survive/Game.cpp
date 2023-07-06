@@ -72,6 +72,7 @@ void Game::processEvents()
 //Updates the game logic
 void Game::update(sf::Time deltaTime)
 {
+	//player movement
 	sf::Vector2f movement(0.f, 0.f);
 	if (isMovingUp)
 		movement.y -= player->getPlayerSpeed();
