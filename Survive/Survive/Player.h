@@ -9,9 +9,12 @@ class Player : public Entity
 public:
 	Player();
 	float getPlayerSpeed();
+	const sf::Vector2f getPlayerPosition();
+
 	void update();
 	void render(sf::RenderTarget& target);
 	void move(const float x, const float y);
+	void setPosition(const float x, const float y);
 
 private:
 	sf::Sprite sprite;
@@ -19,6 +22,6 @@ private:
 	const float playerSpeed = PLAYER_SPEED;
 
 	void initVariables();
-	 void initTexture();
+	void initTexture();
 	void initSprite();
 };

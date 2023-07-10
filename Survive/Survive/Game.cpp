@@ -6,14 +6,18 @@ Game::Game() :
 	isMovingLeft(false),
 	isMovingRight(false)
 {
+	initView();
 	initWindow();
+	initBackground();
 	initPlayer();
 }
 
 Game::~Game()
 {
 	delete mainWindow;
+	delete mainView;
 	delete player;
+	delete background;
 }
 
 void Game::run()
@@ -29,7 +33,6 @@ void Game::run()
 			timeSinceLastUpdate -= timePerFrame;
 			processEvents();
 			update(timePerFrame);
-
 		}
 		render();
 	}
@@ -37,13 +40,25 @@ void Game::run()
 
 void Game::initWindow()
 {
-	mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Survive", sf::Style::Default | sf::Style::Close);
+	mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Survive", sf::Style::Default | sf::Style::Resize);
 	mainWindow->setVerticalSyncEnabled(false);
+	mainWindow->setView(*mainView);
+}
+
+void Game::initView()
+{
+	mainView = new sf::View(sf::Vector2f(960.f, 540.f), sf::Vector2f(1920.f, 1080.f));
+}
+
+void Game::initBackground()
+{
+	background = new Background();
 }
 
 void Game::initPlayer()
 {
 	player = new Player();
+	player->setPosition(mainWindow->getSize().x / 2 - 50, mainWindow->getSize().y / 2 - 50);
 }
 
 //Handles user input
@@ -84,6 +99,8 @@ void Game::update(sf::Time deltaTime)
 		movement.x += player->getPlayerSpeed();
 
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
+	mainView->setCenter(player->getPlayerPosition());
+	mainWindow->setView(*mainView);
 }
 
 //Renders game to the screen
@@ -92,6 +109,7 @@ void Game::render()
 	mainWindow->clear();
 
 	//draw everything
+	background->render(*mainWindow);
 	player->render(*mainWindow);
 
 	mainWindow->display();

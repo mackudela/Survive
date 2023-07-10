@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#define PLAYER_TEXTURE_PATH "media/textures/hooman.png"
+
 Player::Player()
 {
 	initTexture();
@@ -17,9 +19,14 @@ float Player::getPlayerSpeed()
 	return playerSpeed;
 }
 
+const sf::Vector2f Player::getPlayerPosition()
+{
+	return sprite.getPosition();
+}
+
 void Player::initTexture()
 {
-	if (!texture.loadFromFile("media/textures/hooman.png"))
+	if (!texture.loadFromFile(PLAYER_TEXTURE_PATH))
 	{
 		std::cout << "Could not load Player texture file\n";
 	}
@@ -42,4 +49,9 @@ void Player::render(sf::RenderTarget& target)
 void Player::move(const float x, const float y)
 {
 	sprite.move(x, y);
+}
+
+void Player::setPosition(const float x, const float y)
+{
+	sprite.setPosition(x, y);
 }
