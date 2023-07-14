@@ -10,10 +10,17 @@
 class Entity
 {
 public:
-	void setVelocity(sf::Vector2f velocity);
-	void setVelocity(float velocityX, float velocityY);
-	sf::Vector2f getVelocity() const;
+	const sf::Vector2f getPosition();
 
-private:
-	sf::Vector2f velocity;
+	void update();
+	void render(sf::RenderTarget& target);
+	void move(const float x, const float y);
+	void setPosition(const float x, const float y);
+
+protected:
+	sf::Sprite sprite;
+	sf::Texture texture;
+
+	virtual void initTexture(std::string texturePath);
+	virtual void initSprite();
 };

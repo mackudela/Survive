@@ -4,30 +4,11 @@
 
 Background::Background()
 {
-	initTexture();
+	initTexture(BACKGROUND_TEXTURE_PATH);
 	initSprite();
 }
 
-void Background::update()
-{
-}
-
-void Background::render(sf::RenderTarget& target)
-{
-	target.draw(sprite);
-}
-
-void Background::move(const float x, const float y)
-{
-	sprite.move(x, y);
-}
-
-void Background::setPosition(const float x, const float y)
-{
-	sprite.setPosition(x, y);
-}
-
-void Background::initTexture()
+void Background::initTexture(std::string texturePath)
 {
 	if (!texture.loadFromFile(BACKGROUND_TEXTURE_PATH))
 	{

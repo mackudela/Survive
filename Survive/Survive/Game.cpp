@@ -90,16 +90,16 @@ void Game::update(sf::Time deltaTime)
 	//player movement
 	sf::Vector2f movement(0.f, 0.f);
 	if (isMovingUp)
-		movement.y -= player->getPlayerSpeed();
+		movement.y -= player->getMovementSpeed();
 	if (isMovingDown)
-		movement.y += player->getPlayerSpeed();
+		movement.y += player->getMovementSpeed();
 	if (isMovingLeft)
-		movement.x -= player->getPlayerSpeed();
+		movement.x -= player->getMovementSpeed();
 	if (isMovingRight)
-		movement.x += player->getPlayerSpeed();
+		movement.x += player->getMovementSpeed();
 
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
-	mainView->setCenter(player->getPlayerPosition());
+	mainView->setCenter(player->getPosition());
 	mainWindow->setView(*mainView);
 }
 

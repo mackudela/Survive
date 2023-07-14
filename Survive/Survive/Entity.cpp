@@ -1,17 +1,38 @@
 #include "Entity.h"
 
-void Entity::setVelocity(sf::Vector2f velocity)
+const sf::Vector2f Entity::getPosition()
 {
-	this->velocity = velocity;
+	return sprite.getPosition();
 }
 
-void Entity::setVelocity(float velocityX, float velocityY)
+void Entity::initTexture(std::string texturePath)
 {
-	velocity.x = velocityX;
-	velocity.y = velocityY;
+	if (!texture.loadFromFile(texturePath))
+	{
+		std::cout << "Could not load texture file\n";
+	}
 }
 
-sf::Vector2f Entity::getVelocity() const
+void Entity::initSprite()
 {
-	return velocity;
+	sprite.setTexture(texture);
+}
+
+void Entity::update()
+{
+}
+
+void Entity::render(sf::RenderTarget& target)
+{
+	target.draw(sprite);
+}
+
+void Entity::move(const float x, const float y)
+{
+	sprite.move(x, y);
+}
+
+void Entity::setPosition(const float x, const float y)
+{
+	sprite.setPosition(x, y);
 }
