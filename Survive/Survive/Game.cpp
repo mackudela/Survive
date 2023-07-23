@@ -14,10 +14,7 @@ Game::Game() :
 
 Game::~Game()
 {
-	delete mainWindow;
-	delete mainView;
-	delete player;
-	delete background;
+
 }
 
 void Game::run()
@@ -40,24 +37,24 @@ void Game::run()
 
 void Game::initWindow()
 {
-	mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Survive", sf::Style::Default | sf::Style::Resize);
+	mainWindow = std::make_unique<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Survive", sf::Style::Default | sf::Style::Resize);
 	mainWindow->setVerticalSyncEnabled(false);
 	mainWindow->setView(*mainView);
 }
 
 void Game::initView()
 {
-	mainView = new sf::View(sf::Vector2f(960.f, 540.f), sf::Vector2f(1920.f, 1080.f));
+	mainView = std::make_unique<sf::View>(sf::View(sf::Vector2f(960.f, 540.f), sf::Vector2f(1920.f, 1080.f)));
 }
 
 void Game::initBackground()
 {
-	background = new Background();
+	background = std::make_unique<Background>();
 }
 
 void Game::initPlayer()
 {
-	player = new Player();
+	player = std::make_unique<Player>();
 	player->setPosition(mainWindow->getSize().x / 2, mainWindow->getSize().y / 2);
 }
 

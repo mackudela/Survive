@@ -24,10 +24,10 @@ private:
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 
-	sf::RenderWindow* mainWindow;
-	sf::View* mainView;
-	Player* player;
-	Background* background;
+	std::unique_ptr<sf::RenderWindow> mainWindow;
+	std::unique_ptr<sf::View> mainView;
+	std::unique_ptr<Player> player;
+	std::unique_ptr<Background> background;
 	
 
 	bool isMovingUp;
