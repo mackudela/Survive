@@ -58,7 +58,7 @@ void Game::initBackground()
 void Game::initPlayer()
 {
 	player = new Player();
-	player->setPosition(mainWindow->getSize().x / 2 - 50, mainWindow->getSize().y / 2 - 50);
+	player->setPosition(mainWindow->getSize().x / 2, mainWindow->getSize().y / 2);
 }
 
 //Handles user input
@@ -97,9 +97,8 @@ void Game::update(sf::Time deltaTime)
 		movement.x -= player->getMovementSpeed();
 	if (isMovingRight)
 		movement.x += player->getMovementSpeed();
-
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
-	mainView->setCenter(player->getPosition());
+	mainView->setCenter({ player->getPosition().x + (player->getTextureSize().x / 2), player->getPosition().y + (player->getTextureSize().y / 2) });
 	mainWindow->setView(*mainView);
 }
 

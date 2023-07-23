@@ -9,9 +9,8 @@ class Player : public Entity
 public:
 	Player();
 	float getMovementSpeed();
+	sf::Vector2u getTextureSize();
 
 private:
-	sf::Sprite sprite;
-	sf::Texture texture;
 	const float playerSpeed = PLAYER_SPEED;
 };

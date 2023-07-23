@@ -12,3 +12,8 @@ float Player::getMovementSpeed()
 {
 	return playerSpeed;
 }
+
+sf::Vector2u Player::getTextureSize()
+{
+	return texture.getSize();
+}
