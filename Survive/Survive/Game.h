@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <memory>
 
 #include "Player.h"
@@ -19,8 +18,11 @@ private:
 	void initView();
 	void initBackground();
 	void initPlayer();
+	void initFont();
 	void processEvents();
 	void update(sf::Time time);
+	void updatePlayerMovement(sf::Time deltaTime);
+	void updateViewPosition();
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 
@@ -34,5 +36,10 @@ private:
 	bool isMovingDown;
 	bool isMovingLeft;
 	bool isMovingRight;
-	const sf::Time timePerFrame = sf::seconds(1.f / 60.f);
+	float playerMovementSpeed;
+	sf::Vector2f playerPosition;
+	const sf::Time timePerFrame = sf::seconds(1.f / 144.f);
+	sf::Text playerPositionText;
+	std::string playerPositionString;
+	sf::Font font;
 };

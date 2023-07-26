@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 
-#define PLAYER_SPEED 300.f;
+#define PLAYER_SPEED 1000.f;
 
 class Player : public Entity
 {

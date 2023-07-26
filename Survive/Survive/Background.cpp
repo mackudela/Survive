@@ -1,6 +1,8 @@
 #include "Background.h"
 
 #define BACKGROUND_TEXTURE_PATH "media/textures/background.jpg"
+#define BACKGROUND_WIDTH 4000
+#define BACKGROUND_HEIGHT 4000
 
 Background::Background()
 {
@@ -20,5 +22,5 @@ void Background::initTexture(std::string texturePath)
 void Background::initSprite()
 {
 	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(0, 0, 4000, 4000));
+	sprite.setTextureRect(sf::IntRect(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT));
 }

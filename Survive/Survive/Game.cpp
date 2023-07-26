@@ -1,4 +1,9 @@
 #include "Game.h"
+#define FONT_PATH "media/fonts/ARIAL.ttf"
+#define BACKGROUND_WIDTH 4000
+#define BACKGROUND_HEIGHT 4000
+#define VIEW_CENTER_X 960.f
+#define VIEW_CENTER_Y 540.f
 
 Game::Game() : 
 	isMovingUp(false),
@@ -10,6 +15,7 @@ Game::Game() :
 	initWindow();
 	initBackground();
 	initPlayer();
+	initFont();
 }
 
 Game::~Game()
@@ -58,6 +64,16 @@ void Game::initPlayer()
 	player->setPosition(mainWindow->getSize().x / 2, mainWindow->getSize().y / 2);
 }
 
+void Game::initFont()
+{
+	if (!font.loadFromFile(FONT_PATH))
+		std::cout << "Wrong font path";
+	playerPositionText.setFont(font);
+	playerPositionText.setCharacterSize(24);
+	playerPositionText.setFillColor(sf::Color::Red);
+	playerPositionText.setStyle(sf::Text::Bold);
+}
+
 //Handles user input
 void Game::processEvents()
 {
@@ -85,17 +101,74 @@ void Game::processEvents()
 void Game::update(sf::Time deltaTime)
 {
 	//player movement
+	updatePlayerMovement(deltaTime);
+	//view position
+	updateViewPosition();
+
+	//playerPositionText
+	playerPositionString = std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y);
+	playerPositionText.setPosition(player->getPosition());
+	playerPositionText.setString(playerPositionString);
+}
+
+void Game::updatePlayerMovement(sf::Time deltaTime)
+{
 	sf::Vector2f movement(0.f, 0.f);
-	if (isMovingUp)
-		movement.y -= player->getMovementSpeed();
-	if (isMovingDown)
-		movement.y += player->getMovementSpeed();
-	if (isMovingLeft)
-		movement.x -= player->getMovementSpeed();
-	if (isMovingRight)
-		movement.x += player->getMovementSpeed();
+	playerMovementSpeed = player->getMovementSpeed();
+	playerPosition = player->getPosition();
+
+	if (isMovingUp && playerPosition.y > 2)
+		movement.y -= playerMovementSpeed;
+	if (isMovingDown && playerPosition.y < (BACKGROUND_WIDTH - 2 - player->getTextureSize().y))
+		movement.y += playerMovementSpeed;
+	if (isMovingLeft && playerPosition.x > 2)
+		movement.x -= playerMovementSpeed;
+	if (isMovingRight && playerPosition.x < (BACKGROUND_HEIGHT - 2 - player->getTextureSize().x))
+		movement.x += playerMovementSpeed;
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
-	mainView->setCenter({ player->getPosition().x + (player->getTextureSize().x / 2), player->getPosition().y + (player->getTextureSize().y / 2) });
+}
+
+void Game::updateViewPosition()
+{
+	float viewX;
+	float viewY;
+
+	if (playerPosition.x > VIEW_CENTER_X - (player->getTextureSize().x / 2))
+	{
+		if (playerPosition.x < BACKGROUND_WIDTH - VIEW_CENTER_X - (player->getTextureSize().x / 2))
+		{
+			viewX = playerPosition.x;
+		}
+		else
+		{
+			viewX = BACKGROUND_WIDTH - VIEW_CENTER_X - (player->getTextureSize().x / 2);
+		}
+	}
+	else 
+	{
+		viewX = VIEW_CENTER_X - (player->getTextureSize().x / 2);
+	}
+
+	if (playerPosition.y > VIEW_CENTER_Y - (player->getTextureSize().y / 2))
+	{
+		if (playerPosition.y < BACKGROUND_HEIGHT - VIEW_CENTER_Y - (player->getTextureSize().y / 2))
+		{
+			viewY = playerPosition.y;
+		}
+		else
+		{
+			viewY = BACKGROUND_HEIGHT - VIEW_CENTER_Y - (player->getTextureSize().y / 2);
+		}
+	}
+	else 
+	{
+		viewY = VIEW_CENTER_Y - (player->getTextureSize().y / 2);
+	}
+
+	mainView->setCenter(
+		{ viewX + (player->getTextureSize().x / 2),
+		viewY + (player->getTextureSize().y / 2) });
+
 	mainWindow->setView(*mainView);
 }
 
@@ -107,6 +180,8 @@ void Game::render()
 	//draw everything
 	background->render(*mainWindow);
 	player->render(*mainWindow);
+	//playerPositionText
+	mainWindow->draw(playerPositionText);
 
 	mainWindow->display();
 }
