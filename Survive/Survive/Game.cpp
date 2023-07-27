@@ -1,9 +1,4 @@
 #include "Game.h"
-#define FONT_PATH "media/fonts/ARIAL.ttf"
-#define BACKGROUND_WIDTH 4000
-#define BACKGROUND_HEIGHT 4000
-#define VIEW_CENTER_X 960.f
-#define VIEW_CENTER_Y 540.f
 
 Game::Game() : 
 	isMovingUp(false),
@@ -66,7 +61,7 @@ void Game::initPlayer()
 
 void Game::initFont()
 {
-	if (!font.loadFromFile(FONT_PATH))
+	if (!font.loadFromFile(g_fontPath))
 		std::cout << "Wrong font path";
 	playerPositionText.setFont(font);
 	playerPositionText.setCharacterSize(24);
@@ -119,11 +114,11 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 
 	if (isMovingUp && playerPosition.y > 2)
 		movement.y -= playerMovementSpeed;
-	if (isMovingDown && playerPosition.y < (BACKGROUND_WIDTH - 2 - player->getTextureSize().y))
+	if (isMovingDown && playerPosition.y < (g_backgroundWidth - 2 - player->getTextureSize().y))
 		movement.y += playerMovementSpeed;
 	if (isMovingLeft && playerPosition.x > 2)
 		movement.x -= playerMovementSpeed;
-	if (isMovingRight && playerPosition.x < (BACKGROUND_HEIGHT - 2 - player->getTextureSize().x))
+	if (isMovingRight && playerPosition.x < (g_backgroundHeight - 2 - player->getTextureSize().x))
 		movement.x += playerMovementSpeed;
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
 }
@@ -132,37 +127,37 @@ void Game::updateViewPosition()
 {
 	float viewX;
 	float viewY;
-
-	if (playerPosition.x > VIEW_CENTER_X - (player->getTextureSize().x / 2))
+	
+	if (playerPosition.x > g_viewCenterX - (player->getTextureSize().x / 2))
 	{
-		if (playerPosition.x < BACKGROUND_WIDTH - VIEW_CENTER_X - (player->getTextureSize().x / 2))
+		if (playerPosition.x < g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2))
 		{
 			viewX = playerPosition.x;
 		}
 		else
 		{
-			viewX = BACKGROUND_WIDTH - VIEW_CENTER_X - (player->getTextureSize().x / 2);
+			viewX = g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2);
 		}
 	}
 	else 
 	{
-		viewX = VIEW_CENTER_X - (player->getTextureSize().x / 2);
+		viewX = g_viewCenterX - (player->getTextureSize().x / 2);
 	}
 
-	if (playerPosition.y > VIEW_CENTER_Y - (player->getTextureSize().y / 2))
+	if (playerPosition.y > g_viewCenterY - (player->getTextureSize().y / 2))
 	{
-		if (playerPosition.y < BACKGROUND_HEIGHT - VIEW_CENTER_Y - (player->getTextureSize().y / 2))
+		if (playerPosition.y < g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2))
 		{
 			viewY = playerPosition.y;
 		}
 		else
 		{
-			viewY = BACKGROUND_HEIGHT - VIEW_CENTER_Y - (player->getTextureSize().y / 2);
+			viewY = g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2);
 		}
 	}
 	else 
 	{
-		viewY = VIEW_CENTER_Y - (player->getTextureSize().y / 2);
+		viewY = g_viewCenterY - (player->getTextureSize().y / 2);
 	}
 
 	mainView->setCenter(

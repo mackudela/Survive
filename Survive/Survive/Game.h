@@ -4,6 +4,10 @@
 #include "Player.h"
 #include "Background.h"
 
+const float g_viewCenterX = 960.f;
+const float g_viewCenterY = 540.f;
+const std::string g_fontPath = "media\\fonts\\ARIAL.ttf";
+
 class Game
 { 
 public:

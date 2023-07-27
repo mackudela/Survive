@@ -1,10 +1,8 @@
 #include "Player.h"
 
-#define PLAYER_TEXTURE_PATH "media/textures/hooman.png"
-
 Player::Player()
 {
-	initTexture(PLAYER_TEXTURE_PATH);
+	initTexture(g_playerTexturePath);
 	initSprite();
 }
 

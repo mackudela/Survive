@@ -2,7 +2,8 @@
 
 #include "Entity.h"
 
-#define PLAYER_SPEED 1000.f;
+const float g_playerSpeed = 600.f;
+const std::string g_playerTexturePath = "media\\textures\\hooman.png";
 
 class Player : public Entity
 {
@@ -12,5 +13,5 @@ public:
 	sf::Vector2u getTextureSize();
 
 private:
-	const float playerSpeed = PLAYER_SPEED;
+	const float playerSpeed = g_playerSpeed;
 };
