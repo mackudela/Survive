@@ -9,9 +9,10 @@ class Enemy : public Entity
 public:
 	Enemy();
 	float getMovementSpeed();
+	sf::Vector2u getTextureSize();
+	sf::Vector2f getEnemyCenterPosition();
 protected:
 
-	
 private:
 	float movementSpeed = g_enemyMovementSpeed;
 };

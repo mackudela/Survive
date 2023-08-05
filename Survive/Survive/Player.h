@@ -11,6 +11,7 @@ public:
 	Player();
 	float getMovementSpeed();
 	sf::Vector2u getTextureSize();
+	sf::Vector2f getPlayerCenterPosition();
 
 private:
 	const float playerSpeed = g_playerSpeed;

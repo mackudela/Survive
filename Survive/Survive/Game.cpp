@@ -144,7 +144,7 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 
 void Game::updateEnemyMovement(sf::Time deltaTime)
 {
-	sf::Vector2f direction = player->getPosition() - enemy->getPosition();
+	sf::Vector2f direction = player->getPlayerCenterPosition() - enemy->getEnemyCenterPosition();
 	direction = normalizeVector(direction);
 	enemy->move(direction * deltaTime.asSeconds() * enemy->getMovementSpeed());
 }
