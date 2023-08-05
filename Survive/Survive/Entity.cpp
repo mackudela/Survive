@@ -32,6 +32,11 @@ void Entity::move(const float x, const float y)
 	sprite.move(x, y);
 }
 
+void Entity::move(sf::Vector2f direction)
+{
+	sprite.move(direction);
+}
+
 void Entity::setPosition(const float x, const float y)
 {
 	sprite.setPosition(x, y);

@@ -10,6 +10,7 @@ Game::Game() :
 	initWindow();
 	initBackground();
 	initPlayer();
+	initEnemy();
 	initFont();
 }
 
@@ -59,6 +60,12 @@ void Game::initPlayer()
 	player->setPosition(mainWindow->getSize().x / 2, mainWindow->getSize().y / 2);
 }
 
+void Game::initEnemy()
+{
+	enemy = std::make_unique<Enemy>();
+	enemy->setPosition(300, 300);
+}
+
 void Game::initFont()
 {
 	if (!font.loadFromFile(g_fontPath))
@@ -97,6 +104,10 @@ void Game::update(sf::Time deltaTime)
 {
 	//player movement
 	updatePlayerMovement(deltaTime);
+
+	//enemy movement
+	updateEnemyMovement(deltaTime);
+
 	//view position
 	updateViewPosition();
 
@@ -120,7 +131,33 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 		movement.x -= playerMovementSpeed;
 	if (isMovingRight && playerPosition.x < (g_backgroundHeight - 2 - player->getTextureSize().x))
 		movement.x += playerMovementSpeed;
+	if (isMovingRight && (isMovingDown || isMovingUp))
+	{
+		movement *= 0.7f;
+	}
+	else if (isMovingLeft && (isMovingDown || isMovingUp))
+	{
+		movement *= 0.7f;
+	}
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
+}
+
+void Game::updateEnemyMovement(sf::Time deltaTime)
+{
+	sf::Vector2f direction = player->getPosition() - enemy->getPosition();
+	direction = normalizeVector(direction);
+	enemy->move(direction * deltaTime.asSeconds() * enemy->getMovementSpeed());
+}
+
+sf::Vector2f Game::normalizeVector(sf::Vector2f vector)
+{
+	float magnitude = sqrtf(vector.x * vector.x + vector.y * vector.y);
+	if (magnitude != 0)
+	{
+		vector.x /= magnitude;
+		vector.y /= magnitude;
+	}
+	return vector;
 }
 
 void Game::updateViewPosition()
@@ -175,6 +212,7 @@ void Game::render()
 	//draw everything
 	background->render(*mainWindow);
 	player->render(*mainWindow);
+	enemy->render(*mainWindow);
 	//playerPositionText
 	mainWindow->draw(playerPositionText);
 

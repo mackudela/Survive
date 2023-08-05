@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Background.h"
+#include "Enemy.h"
 
 const float g_viewCenterX = 960.f;
 const float g_viewCenterY = 540.f;
@@ -22,10 +23,13 @@ private:
 	void initView();
 	void initBackground();
 	void initPlayer();
+	void initEnemy();
 	void initFont();
 	void processEvents();
 	void update(sf::Time time);
 	void updatePlayerMovement(sf::Time deltaTime);
+	void updateEnemyMovement(sf::Time deltaTime);
+	sf::Vector2f normalizeVector(sf::Vector2f vector);
 	void updateViewPosition();
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
@@ -34,6 +38,7 @@ private:
 	std::unique_ptr<sf::View> mainView;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Background> background;
+	std::unique_ptr<Enemy> enemy;
 	
 
 	bool isMovingUp;
