@@ -102,6 +102,10 @@ void Game::processEvents()
 //Updates the game logic
 void Game::update(sf::Time deltaTime)
 {
+	//check collisions	
+	if(player->checkCollision(enemy->getGlobalBounds()))
+		std::cout << "COLLIDING";
+
 	//player movement
 	updatePlayerMovement(deltaTime);
 

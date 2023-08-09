@@ -41,3 +41,15 @@ void Entity::setPosition(const float x, const float y)
 {
 	sprite.setPosition(x, y);
 }
+
+bool Entity::checkCollision(sf::FloatRect entity)
+{
+	if (sprite.getGlobalBounds().intersects(entity))
+		return true;
+	return false;
+}
+
+sf::FloatRect Entity::getGlobalBounds()
+{
+	return sprite.getGlobalBounds();
+}

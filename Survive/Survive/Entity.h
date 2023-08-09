@@ -17,6 +17,8 @@ public:
 	void move(const float x, const float y);
 	void move(sf::Vector2f direction);
 	void setPosition(const float x, const float y);
+	virtual bool checkCollision(sf::FloatRect entity);
+	sf::FloatRect getGlobalBounds();
 
 protected:
 	sf::Sprite sprite;

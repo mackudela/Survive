@@ -96,7 +96,7 @@ void Menu::runMenu()
 void Menu::setValues()
 {
 	menuWindow->create(sf::VideoMode(1280, 720), "Survive Menu", sf::Style::Titlebar | sf::Style::Close);
-	menuWindow->setPosition(sf::Vector2i(0, 0));
+	menuWindow->setPosition(sf::Vector2i(320, 80));
 
 	if (!font->loadFromFile(fontPath))
 		menuWindow->close();
