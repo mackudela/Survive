@@ -57,7 +57,7 @@ void Game::initBackground()
 void Game::initPlayer()
 {
 	player = std::make_unique<Player>();
-	player->setPosition(mainWindow->getSize().x / 2, mainWindow->getSize().y / 2);
+	player->setPosition(mainWindow->getSize().x / 2.f, mainWindow->getSize().y / 2.f);
 }
 
 void Game::initEnemy()
@@ -148,7 +148,7 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 
 void Game::updateEnemyMovement(sf::Time deltaTime)
 {
-	sf::Vector2f direction = player->getPlayerCenterPosition() - enemy->getEnemyCenterPosition();
+	sf::Vector2f direction = player->getCenterPosition() - enemy->getCenterPosition();
 	direction = normalizeVector(direction);
 	enemy->move(direction * deltaTime.asSeconds() * enemy->getMovementSpeed());
 }

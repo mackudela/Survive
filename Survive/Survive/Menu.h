@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 
-class Menu {
+class Menu 
+{
 public:
 	Menu();
 	void loopEvents();

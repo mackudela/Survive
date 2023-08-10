@@ -53,3 +53,16 @@ sf::FloatRect Entity::getGlobalBounds()
 {
 	return sprite.getGlobalBounds();
 }
+
+sf::Vector2f Entity::getCenterPosition()
+{
+	sf::Vector2f position;
+	position.x = sprite.getPosition().x + (texture.getSize().x / 2);
+	position.y = sprite.getPosition().y + (texture.getSize().y / 2);
+	return position;
+}
+
+sf::Vector2u Entity::getTextureSize()
+{
+	return texture.getSize();
+}
