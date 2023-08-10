@@ -68,7 +68,7 @@ void Game::initEnemy()
 
 void Game::initFont()
 {
-	if (!font.loadFromFile(g_fontPath))
+	if (!font.loadFromFile(fontPath))
 		std::cout << "Wrong font path";
 	playerPositionText.setFont(font);
 	playerPositionText.setCharacterSize(24);
@@ -90,6 +90,10 @@ void Game::processEvents()
 			case sf::Event::KeyReleased:
 				handlePlayerInput(event.key.code, false);
 				break;
+			case sf::Event::MouseButtonPressed:
+				playerAttackSpell(sf::Mouse::getPosition());
+				std::cout << "mouse left\n";
+				break;
 			case sf::Event::Closed:
 				mainWindow->close();
 				break;
@@ -104,7 +108,7 @@ void Game::update(sf::Time deltaTime)
 {
 	//check collisions	
 	if(player->checkCollision(enemy->getGlobalBounds()))
-		std::cout << "COLLIDING";
+		//std::cout << "COLLIDING";
 
 	//player movement
 	updatePlayerMovement(deltaTime);
@@ -233,4 +237,17 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		isMovingLeft = isPressed;
 	else if (key == sf::Keyboard::D)
 		isMovingRight = isPressed;
+	else if (key == sf::Mouse::Left)
+	{
+		/*playerAttackSpell(sf::Mouse::getPosition());
+		std::cout << "mouse left\n";*/
+	}
+}
+
+void Game::playerAttackSpell(sf::Vector2i mouseCords)
+{
+	sf::Vector2f mouseWorldCords = mainWindow->mapPixelToCoords(mouseCords);
+	sf::Vector2f direction = mouseWorldCords - player->getCenterPosition();
+	direction = normalizeVector(direction);
+	player->attackSpell(direction);
 }

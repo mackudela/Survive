@@ -13,7 +13,7 @@ public:
 	const sf::Vector2f getPosition();
 
 	void update();
-	void render(sf::RenderTarget& target);
+	virtual void render(sf::RenderTarget& target);
 	void move(const float x, const float y);
 	void move(sf::Vector2f direction);
 	void setPosition(const float x, const float y);

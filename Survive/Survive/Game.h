@@ -4,21 +4,19 @@
 #include "Player.h"
 #include "Background.h"
 #include "Enemy.h"
+#include "SyringeAttack.h"
 
 const float g_viewCenterX = 960.f;
 const float g_viewCenterY = 540.f;
-const std::string g_fontPath = "media\\fonts\\ARIAL.ttf";
 
 class Game
 { 
 public:
-
 	Game();
 	~Game();
 	void run();
 
 private:
-
 	void initWindow();
 	void initView();
 	void initBackground();
@@ -33,6 +31,7 @@ private:
 	void updateViewPosition();
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+	void playerAttackSpell(sf::Vector2i mouseCords);
 
 	std::unique_ptr<sf::RenderWindow> mainWindow;
 	std::unique_ptr<sf::View> mainView;
@@ -40,7 +39,7 @@ private:
 	std::unique_ptr<Background> background;
 	std::unique_ptr<Enemy> enemy;
 	
-
+	const std::string fontPath = "media\\fonts\\ARIAL.ttf";
 	bool isMovingUp;
 	bool isMovingDown;
 	bool isMovingLeft;
