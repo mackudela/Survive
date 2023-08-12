@@ -12,6 +12,7 @@ public:
 	float getMovementSpeed();
 	void render(sf::RenderTarget& target) override;
 	void attackSpell(sf::Vector2f direction);
+	void move(float x, float y) override;
 
 private:
 	const std::string texturePath = "media\\textures\\hooman.png";

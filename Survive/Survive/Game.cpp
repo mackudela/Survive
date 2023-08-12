@@ -107,8 +107,10 @@ void Game::processEvents()
 void Game::update(sf::Time deltaTime)
 {
 	//check collisions	
-	if(player->checkCollision(enemy->getGlobalBounds()))
+	if (player->checkCollision(enemy->getGlobalBounds()))
+	{
 		//std::cout << "COLLIDING";
+	}
 
 	//player movement
 	updatePlayerMovement(deltaTime);
@@ -148,6 +150,7 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 		movement *= 0.7f;
 	}
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
+	//std::cout << "player movement: " << movement.x * deltaTime.asSeconds() << " " << movement.y * deltaTime.asSeconds() << "\n";
 }
 
 void Game::updateEnemyMovement(sf::Time deltaTime)
@@ -237,11 +240,6 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		isMovingLeft = isPressed;
 	else if (key == sf::Keyboard::D)
 		isMovingRight = isPressed;
-	else if (key == sf::Mouse::Left)
-	{
-		/*playerAttackSpell(sf::Mouse::getPosition());
-		std::cout << "mouse left\n";*/
-	}
 }
 
 void Game::playerAttackSpell(sf::Vector2i mouseCords)

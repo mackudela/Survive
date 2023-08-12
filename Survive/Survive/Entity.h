@@ -14,8 +14,8 @@ public:
 
 	void update();
 	virtual void render(sf::RenderTarget& target);
-	void move(const float x, const float y);
-	void move(sf::Vector2f direction);
+	virtual void move(const float x, const float y);
+	virtual void move(sf::Vector2f direction);
 	void setPosition(const float x, const float y);
 	bool checkCollision(sf::FloatRect entity);
 	sf::FloatRect getGlobalBounds();
