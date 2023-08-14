@@ -13,24 +13,39 @@ float Player::getMovementSpeed()
 
 void Player::render(sf::RenderTarget& target)
 {
+	//draw player
 	target.draw(sprite);
-	for (auto const& spell : playerSpells)
+
+	//draw player spells
+	for (auto it = playerSpells.begin(); it != playerSpells.end();)
 	{
-		target.draw(spell->getSprite());
+
+		if (it->first->isAlive())
+		{
+			target.draw(it->first->getSprite());
+			++it;
+		}
+		else
+		{
+			playerSpells.erase(it++);
+		}
 	}
 }
 
 void Player::attackSpell(sf::Vector2f direction)
 {
 	std::unique_ptr<SyringeAttack> syringeAttk = std::make_unique<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
-	playerSpells.push_back(std::move(syringeAttk));
+	playerSpells.insert_or_assign(std::move(syringeAttk), "Syringe");
 }
 
 void Player::move(float x, float y)
 {
+	//Move player
 	sprite.move(x, y);
+
+	//Move player spells
 	for (auto const& spell : playerSpells)
 	{
-		spell->move(spell->getDirection());
+		spell.first->move(spell.first->getDirection());
 	}
 }

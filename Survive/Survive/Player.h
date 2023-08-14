@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <unordered_map>
 
 #include "Entity.h"
 #include "SyringeAttack.h"
@@ -17,6 +18,5 @@ public:
 private:
 	const std::string texturePath = "media\\textures\\hooman.png";
 	const float playerSpeed = 600.f;
-	std::vector<std::unique_ptr<SyringeAttack>> playerSpells;
-
+	std::unordered_map<std::unique_ptr<SyringeAttack>, std::string> playerSpells;
 };
