@@ -42,6 +42,11 @@ void Entity::setPosition(const float x, const float y)
 	sprite.setPosition(x, y);
 }
 
+void Entity::rotate(sf::Vector2f direction)
+{
+	sprite.rotate(atan2(direction.y, direction.x) * 180.f / (atan(1.f) * 4.f) + 90.f); // (atan(1) + 4) == pi
+}
+
 bool Entity::checkCollision(sf::FloatRect entity)
 {
 	if (sprite.getGlobalBounds().intersects(entity))

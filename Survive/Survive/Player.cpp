@@ -24,7 +24,6 @@ void Player::attackSpell(sf::Vector2f direction)
 {
 	std::unique_ptr<SyringeAttack> syringeAttk = std::make_unique<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
 	playerSpells.push_back(std::move(syringeAttk));
-	//std::cout << "Syringe on\n";
 }
 
 void Player::move(float x, float y)
@@ -33,6 +32,5 @@ void Player::move(float x, float y)
 	for (auto const& spell : playerSpells)
 	{
 		spell->move(spell->getDirection());
-		//std::cout << "spell cords: " << spell->getPosition().x << " " << spell->getPosition().y << "\n";
 	}
 }

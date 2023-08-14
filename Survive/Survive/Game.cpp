@@ -91,7 +91,7 @@ void Game::processEvents()
 				handlePlayerInput(event.key.code, false);
 				break;
 			case sf::Event::MouseButtonPressed:
-				playerAttackSpell(sf::Mouse::getPosition());
+				playerAttackSpell(sf::Mouse::getPosition(*mainWindow));
 				std::cout << "mouse left\n";
 				break;
 			case sf::Event::Closed:

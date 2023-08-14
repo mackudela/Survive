@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include "Entity.h"
 
 class SyringeAttack : public Entity

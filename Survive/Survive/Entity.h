@@ -17,6 +17,7 @@ public:
 	virtual void move(const float x, const float y);
 	virtual void move(sf::Vector2f direction);
 	void setPosition(const float x, const float y);
+	void rotate(sf::Vector2f direction);
 	bool checkCollision(sf::FloatRect entity);
 	sf::FloatRect getGlobalBounds();
 	sf::Vector2f getCenterPosition();
