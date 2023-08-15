@@ -11,7 +11,7 @@ Game::Game() :
 	initBackground();
 	initPlayer();
 	initEnemy();
-	initFont();
+	//initFont();
 }
 
 Game::~Game()
@@ -66,15 +66,15 @@ void Game::initEnemy()
 	enemy->setPosition(300, 300);
 }
 
-void Game::initFont()
-{
-	if (!font.loadFromFile(fontPath))
-		std::cout << "Wrong font path";
-	playerPositionText.setFont(font);
-	playerPositionText.setCharacterSize(24);
-	playerPositionText.setFillColor(sf::Color::Red);
-	playerPositionText.setStyle(sf::Text::Bold);
-}
+//void Game::initFont()
+//{
+//	if (!font.loadFromFile(fontPath))
+//		std::cout << "Wrong font path";
+//	playerPositionText.setFont(font);
+//	playerPositionText.setCharacterSize(24);
+//	playerPositionText.setFillColor(sf::Color::Red);
+//	playerPositionText.setStyle(sf::Text::Bold);
+//}
 
 //Handles user input
 void Game::processEvents()
@@ -92,7 +92,6 @@ void Game::processEvents()
 				break;
 			case sf::Event::MouseButtonPressed:
 				playerAttackSpell(sf::Mouse::getPosition(*mainWindow));
-				std::cout << "mouse left\n";
 				break;
 			case sf::Event::Closed:
 				mainWindow->close();
@@ -120,14 +119,15 @@ void Game::update(sf::Time deltaTime)
 
 	//view position
 	updateViewPosition();
-
-	//playerPositionText
-	playerPositionString = std::to_string(player->getPosition().x) + " " + std::to_string(player->getPosition().y);
-	playerPositionText.setPosition(player->getPosition());
-	playerPositionText.setString(playerPositionString);
 }
 
 void Game::updatePlayerMovement(sf::Time deltaTime)
+{
+	sf::Vector2f movement = calculatePlayerMovement();
+	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
+}
+
+sf::Vector2f Game::calculatePlayerMovement()
 {
 	sf::Vector2f movement(0.f, 0.f);
 	playerMovementSpeed = player->getMovementSpeed();
@@ -149,8 +149,7 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 	{
 		movement *= 0.7f;
 	}
-	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
-	//std::cout << "player movement: " << movement.x * deltaTime.asSeconds() << " " << movement.y * deltaTime.asSeconds() << "\n";
+	return movement;
 }
 
 void Game::updateEnemyMovement(sf::Time deltaTime)
@@ -173,60 +172,64 @@ sf::Vector2f Game::normalizeVector(sf::Vector2f vector)
 
 void Game::updateViewPosition()
 {
-	float viewX;
-	float viewY;
-	
+	sf::Vector2f viewPosition = calculateViewPosition();
+	mainView->setCenter(
+		{ viewPosition.x + (player->getTextureSize().x / 2),
+		viewPosition.y + (player->getTextureSize().y / 2) });
+
+	mainWindow->setView(*mainView);
+}
+
+sf::Vector2f Game::calculateViewPosition()
+{
+	sf::Vector2f viewPosition;
+
 	if (playerPosition.x > g_viewCenterX - (player->getTextureSize().x / 2))
 	{
 		if (playerPosition.x < g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2))
 		{
-			viewX = playerPosition.x;
+			viewPosition.x = playerPosition.x;
 		}
 		else
 		{
-			viewX = g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2);
+			viewPosition.x = g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2);
 		}
 	}
-	else 
+	else
 	{
-		viewX = g_viewCenterX - (player->getTextureSize().x / 2);
+		viewPosition.x = g_viewCenterX - (player->getTextureSize().x / 2);
 	}
 
 	if (playerPosition.y > g_viewCenterY - (player->getTextureSize().y / 2))
 	{
 		if (playerPosition.y < g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2))
 		{
-			viewY = playerPosition.y;
+			viewPosition.y = playerPosition.y;
 		}
 		else
 		{
-			viewY = g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2);
+			viewPosition.y = g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2);
 		}
 	}
-	else 
+	else
 	{
-		viewY = g_viewCenterY - (player->getTextureSize().y / 2);
+		viewPosition.y = g_viewCenterY - (player->getTextureSize().y / 2);
 	}
-
-	mainView->setCenter(
-		{ viewX + (player->getTextureSize().x / 2),
-		viewY + (player->getTextureSize().y / 2) });
-
-	mainWindow->setView(*mainView);
+	return viewPosition;
 }
 
 //Renders game to the screen
 void Game::render()
 {
+	//clear window
 	mainWindow->clear();
 
 	//draw everything
 	background->render(*mainWindow);
 	player->render(*mainWindow);
 	enemy->render(*mainWindow);
-	//playerPositionText
-	mainWindow->draw(playerPositionText);
 
+	//display
 	mainWindow->display();
 }
 

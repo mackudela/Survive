@@ -8,8 +8,5 @@ int main()
     Menu menu;
     menu.runMenu();
 
-    //Game game;
-    //game.run();
-
     return 0;
 }

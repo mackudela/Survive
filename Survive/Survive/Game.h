@@ -17,20 +17,27 @@ public:
 	void run();
 
 private:
+	//inits
 	void initWindow();
 	void initView();
 	void initBackground();
 	void initPlayer();
 	void initEnemy();
-	void initFont();
+	//void initFont();
+
+	//updates
 	void processEvents();
 	void update(sf::Time time);
 	void updatePlayerMovement(sf::Time deltaTime);
+	sf::Vector2f calculatePlayerMovement();
 	void updateEnemyMovement(sf::Time deltaTime);
 	sf::Vector2f normalizeVector(sf::Vector2f vector);
 	void updateViewPosition();
+	sf::Vector2f calculateViewPosition();
 	void render();
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+
+	//others
 	void playerAttackSpell(sf::Vector2i mouseCords);
 
 	std::unique_ptr<sf::RenderWindow> mainWindow;
@@ -47,7 +54,7 @@ private:
 	float playerMovementSpeed;
 	sf::Vector2f playerPosition;
 	const sf::Time timePerFrame = sf::seconds(1.f / 144.f);
-	sf::Text playerPositionText;
-	std::string playerPositionString;
-	sf::Font font;
+	//sf::Text playerPositionText;
+	//std::string playerPositionString;
+	//sf::Font font;
 };
