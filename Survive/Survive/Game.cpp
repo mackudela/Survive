@@ -11,7 +11,6 @@ Game::Game() :
 	initBackground();
 	initPlayer();
 	initEnemy();
-	//initFont();
 }
 
 Game::~Game()
@@ -66,16 +65,6 @@ void Game::initEnemy()
 	enemy->setPosition(300, 300);
 }
 
-//void Game::initFont()
-//{
-//	if (!font.loadFromFile(fontPath))
-//		std::cout << "Wrong font path";
-//	playerPositionText.setFont(font);
-//	playerPositionText.setCharacterSize(24);
-//	playerPositionText.setFillColor(sf::Color::Red);
-//	playerPositionText.setStyle(sf::Text::Bold);
-//}
-
 //Handles user input
 void Game::processEvents()
 {
@@ -106,16 +95,19 @@ void Game::processEvents()
 void Game::update(sf::Time deltaTime)
 {
 	//check collisions	
-	if (player->checkCollision(enemy->getGlobalBounds()))
+	if (enemy.get())
 	{
-		//std::cout << "COLLIDING";
+		checkCollisions();
 	}
 
 	//player movement
 	updatePlayerMovement(deltaTime);
 
 	//enemy movement
-	updateEnemyMovement(deltaTime);
+	if (enemy.get())
+	{
+		updateEnemyMovement(deltaTime);
+	}
 
 	//view position
 	updateViewPosition();
@@ -227,7 +219,10 @@ void Game::render()
 	//draw everything
 	background->render(*mainWindow);
 	player->render(*mainWindow);
-	enemy->render(*mainWindow);
+	if (enemy.get())
+	{
+		enemy->render(*mainWindow);
+	}
 
 	//display
 	mainWindow->display();
@@ -251,4 +246,26 @@ void Game::playerAttackSpell(sf::Vector2i mouseCords)
 	sf::Vector2f direction = mouseWorldCords - player->getCenterPosition();
 	direction = normalizeVector(direction);
 	player->attackSpell(direction);
+}
+
+void Game::checkCollisions()
+{
+	//std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> playerSpells = player->getPlayerSpells();
+	auto playerSpells = player->getPlayerSpells();
+	if (enemy.get())
+	{
+		for (auto& spell : playerSpells)
+		{
+			if (spell.first->checkCollision(enemy->getGlobalBounds()))
+			{
+				enemy->receiveDamage(spell.first->getDamage());
+				player->destroySpell(spell.first);
+				if (enemy->getHP() <= 0)
+				{
+					enemy.reset();
+					return;
+				}
+			}
+		}
+	}
 }

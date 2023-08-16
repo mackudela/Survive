@@ -28,3 +28,8 @@ bool SyringeAttack::isAlive()
 		return true;
 	return false;
 }
+
+int SyringeAttack::getDamage()
+{
+	return damage;
+}

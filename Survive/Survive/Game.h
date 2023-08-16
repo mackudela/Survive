@@ -23,7 +23,6 @@ private:
 	void initBackground();
 	void initPlayer();
 	void initEnemy();
-	//void initFont();
 
 	//updates
 	void processEvents();
@@ -39,7 +38,9 @@ private:
 
 	//others
 	void playerAttackSpell(sf::Vector2i mouseCords);
+	void checkCollisions();
 
+	//variables
 	std::unique_ptr<sf::RenderWindow> mainWindow;
 	std::unique_ptr<sf::View> mainView;
 	std::unique_ptr<Player> player;
@@ -54,7 +55,4 @@ private:
 	float playerMovementSpeed;
 	sf::Vector2f playerPosition;
 	const sf::Time timePerFrame = sf::seconds(1.f / 144.f);
-	//sf::Text playerPositionText;
-	//std::string playerPositionString;
-	//sf::Font font;
 };

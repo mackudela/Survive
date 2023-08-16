@@ -11,9 +11,11 @@ public:
 	sf::Sprite getSprite();
 	sf::Vector2f getDirection();
 	bool isAlive();
+	int getDamage();
 
 private:
 	const std::string texturePath = "media\\textures\\syringe.png";
 	sf::Vector2f direction;
 	sf::Clock lifespan;
+	int damage = 50;
 };

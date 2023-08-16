@@ -34,7 +34,7 @@ void Player::render(sf::RenderTarget& target)
 
 void Player::attackSpell(sf::Vector2f direction)
 {
-	std::unique_ptr<SyringeAttack> syringeAttk = std::make_unique<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
+	std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
 	playerSpells.insert_or_assign(std::move(syringeAttk), "Syringe");
 }
 
@@ -49,3 +49,14 @@ void Player::move(float x, float y)
 		spell.first->move(spell.first->getDirection());
 	}
 }
+
+std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> Player::getPlayerSpells()
+{
+	return playerSpells;
+}
+
+void Player::destroySpell(std::shared_ptr<SyringeAttack> spell)
+{
+	playerSpells.erase(playerSpells.find(spell));
+}
+

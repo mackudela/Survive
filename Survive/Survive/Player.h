@@ -14,9 +14,11 @@ public:
 	void render(sf::RenderTarget& target) override;
 	void attackSpell(sf::Vector2f direction);
 	void move(float x, float y) override;
+	std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> getPlayerSpells();
+	void destroySpell(std::shared_ptr<SyringeAttack> spell);
 
 private:
 	const std::string texturePath = "media\\textures\\hooman.png";
 	const float playerSpeed = 600.f;
-	std::unordered_map<std::unique_ptr<SyringeAttack>, std::string> playerSpells;
+	std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> playerSpells;
 };
