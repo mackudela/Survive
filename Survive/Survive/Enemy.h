@@ -8,16 +8,15 @@ public:
 	float getMovementSpeed();
 	void render(sf::RenderTarget& target) override;
 	void move(sf::Vector2f direction) override;
-	void receiveDamage(int damage);
-	int getHP();
+	void receiveDamage(float damage);
+	float getHP();
+	float getXP();
 
 protected:
-
-private:
-	int currentHP = 100;
-	int maxHP;
-	bool isAlive;
-	float movementSpeed = 400.f;
+	float currentHP;
+	float maxHP;
+	float XP;
+	float movementSpeed;
 	const std::string texturePath = "media\\textures\\enemy.png";
 	sf::RectangleShape hpBar;
 

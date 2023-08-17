@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy() : isAlive(true)
+Enemy::Enemy() : XP(10.f), currentHP(100.f), maxHP(100.f), movementSpeed(400.f)
 {
 	initTexture(texturePath);
 	initSprite();
@@ -19,7 +19,6 @@ void Enemy::initHPBar()
 	hpBar.setOutlineThickness(1);
 	hpBar.setOutlineColor(sf::Color::Black);
 	hpBar.setPosition(getCenterPosition());
-	//hpBar.setScale(sf::Vector2f(0.5, 1));
 }
 
 void Enemy::renderHPBar(sf::RenderTarget& target)
@@ -39,17 +38,23 @@ void Enemy::move(sf::Vector2f direction)
 	updateHpBar();
 }
 
-void Enemy::receiveDamage(int damage)
+void Enemy::receiveDamage(float damage)
 {
 	currentHP -= damage;
 }
 
-int Enemy::getHP()
+float Enemy::getHP()
 {
 	return currentHP;
+}
+
+float Enemy::getXP()
+{
+	return XP;
 }
 
 void Enemy::updateHpBar()
 {
 	hpBar.setPosition(getCenterPosition() - sf::Vector2f(hpBar.getSize().x / 2, (getTextureSize().y / 2) + 10.f));
+	hpBar.setScale(sf::Vector2f(currentHP / maxHP, 1));
 }

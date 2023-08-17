@@ -1,9 +1,10 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player() : playerSpeed(600.f), attackCooldown(sf::seconds(1.f))
 {
 	initTexture(texturePath);
 	initSprite();
+	cooldownTimer.restart();
 }
 
 float Player::getMovementSpeed()
@@ -34,8 +35,12 @@ void Player::render(sf::RenderTarget& target)
 
 void Player::attackSpell(sf::Vector2f direction)
 {
-	std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
-	playerSpells.insert_or_assign(std::move(syringeAttk), "Syringe");
+	if (cooldownTimer.getElapsedTime().asSeconds() >= attackCooldown.asSeconds())
+	{
+		std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
+		playerSpells.insert_or_assign(std::move(syringeAttk), "Syringe");
+		cooldownTimer.restart();
+	}
 }
 
 void Player::move(float x, float y)
@@ -54,9 +59,9 @@ std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> Player::getPlaye
 {
 	return playerSpells;
 }
-
+	
 void Player::destroySpell(std::shared_ptr<SyringeAttack> spell)
-{
+{	
 	playerSpells.erase(playerSpells.find(spell));
 }
 

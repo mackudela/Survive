@@ -1,7 +1,7 @@
 #include "SyringeAttack.h"
 
 SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction) : 
-	direction(direction)
+	direction(direction), damage(50.f)
 {
 	initTexture(texturePath);
 	initSprite();
@@ -29,7 +29,7 @@ bool SyringeAttack::isAlive()
 	return false;
 }
 
-int SyringeAttack::getDamage()
+float SyringeAttack::getDamage()
 {
 	return damage;
 }
