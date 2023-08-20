@@ -2,7 +2,7 @@
 
 Background::Background()
 {
-	initTexture(g_backgroundTexturePath);
+	initTexture(texturePath);
 	initSprite();
 }
 

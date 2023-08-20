@@ -17,13 +17,10 @@ public:
 	std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> getPlayerSpells();
 	void destroySpell(std::shared_ptr<SyringeAttack> spell);
 
-
 private:
 	const std::string texturePath = "media\\textures\\hooman.png";
 	float playerSpeed;
 	std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> playerSpells;
 	sf::Time attackCooldown;
 	sf::Clock cooldownTimer;
-
-	bool canAttack();
 };

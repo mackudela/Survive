@@ -37,7 +37,7 @@ void Player::attackSpell(sf::Vector2f direction)
 {
 	if (cooldownTimer.getElapsedTime().asSeconds() >= attackCooldown.asSeconds())
 	{
-		std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction);
+		std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction, 50.f);
 		playerSpells.insert_or_assign(std::move(syringeAttk), "Syringe");
 		cooldownTimer.restart();
 	}

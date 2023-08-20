@@ -39,6 +39,9 @@
     <ClCompile Include="SyringeAttack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Spell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SyringeAttack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

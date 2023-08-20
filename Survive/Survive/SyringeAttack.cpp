@@ -1,8 +1,9 @@
 #include "SyringeAttack.h"
 
-SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction) : 
-	direction(direction), damage(50.f)
+SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction, float damage) : 
+	direction(direction)
 {
+	this->damage = damage;
 	initTexture(texturePath);
 	initSprite();
 
@@ -10,11 +11,6 @@ SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction) :
 	setPosition(posX, posY);
 	rotate(direction);
 	lifespan.restart();
-}
-
-sf::Sprite SyringeAttack::getSprite()
-{
-	return sprite;
 }
 
 sf::Vector2f SyringeAttack::getDirection()
@@ -27,9 +23,4 @@ bool SyringeAttack::isAlive()
 	if (lifespan.getElapsedTime().asSeconds() < 3)
 		return true;
 	return false;
-}
-
-float SyringeAttack::getDamage()
-{
-	return damage;
 }
