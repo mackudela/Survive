@@ -17,8 +17,8 @@ protected:
 	float maxHP;
 	float XP;
 	float movementSpeed;
-	const std::string texturePath = "media\\textures\\enemy.png";
-	sf::RectangleShape hpBar;
+	const std::string texturePath = "media\\textures\\hooman.png";
+	std::shared_ptr<sf::RectangleShape> hpBar;
 
 	void initHPBar();
 	void renderHPBar(sf::RenderTarget& target);

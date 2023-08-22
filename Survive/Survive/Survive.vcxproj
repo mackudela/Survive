@@ -135,21 +135,25 @@
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RedVirus.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="SyringeAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RedVirus.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="SyringeAttack.h" />
   </ItemGroup>

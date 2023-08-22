@@ -117,7 +117,7 @@ void Menu::setValues()
 	{
 		texts[i].setFont(*font);
 		texts[i].setString(options[i]);
-		texts[i].setCharacterSize(textSizes[i]);
+		texts[i].setCharacterSize((unsigned int)textSizes[i]);
 		texts[i].setOutlineColor(sf::Color::Black);
 		texts[i].setPosition(cords[i]);
 	}

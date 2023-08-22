@@ -14,16 +14,17 @@ float Enemy::getMovementSpeed()
 
 void Enemy::initHPBar()
 {
-	hpBar.setSize(sf::Vector2f(70.f, 7.f));
-	hpBar.setFillColor(sf::Color::Red);
-	hpBar.setOutlineThickness(1);
-	hpBar.setOutlineColor(sf::Color::Black);
-	hpBar.setPosition(getCenterPosition());
+	hpBar = std::make_shared<sf::RectangleShape>();
+	hpBar->setSize(sf::Vector2f(70.f, 7.f));
+	hpBar->setFillColor(sf::Color::Red);
+	hpBar->setOutlineThickness(1);
+	hpBar->setOutlineColor(sf::Color::Black);
+	hpBar->setPosition(getCenterPosition());
 }
 
 void Enemy::renderHPBar(sf::RenderTarget& target)
 {
-	target.draw(hpBar);
+	target.draw(*hpBar);
 }
 
 void Enemy::render(sf::RenderTarget& target)
@@ -55,6 +56,6 @@ float Enemy::getXP()
 
 void Enemy::updateHpBar()
 {
-	hpBar.setPosition(getCenterPosition() - sf::Vector2f(hpBar.getSize().x / 2, (getTextureSize().y / 2) + 10.f));
-	hpBar.setScale(sf::Vector2f(currentHP / maxHP, 1));
+	hpBar->setPosition(getCenterPosition() - sf::Vector2f(hpBar->getSize().x / 2, (getTextureSize().y / 2) + 10.f));
+	hpBar->setScale(sf::Vector2f(currentHP / maxHP, 1));
 }

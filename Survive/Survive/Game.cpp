@@ -10,7 +10,7 @@ Game::Game() :
 	initWindow();
 	initBackground();
 	initPlayer();
-	initEnemy();
+	initEnemySpawner();
 }
 
 Game::~Game()
@@ -59,10 +59,9 @@ void Game::initPlayer()
 	player->setPosition(mainWindow->getSize().x / 2.f, mainWindow->getSize().y / 2.f);
 }
 
-void Game::initEnemy()
+void Game::initEnemySpawner()
 {
-	enemy = std::make_unique<Enemy>();
-	enemy->setPosition(300, 300);
+	enemySpawner = std::make_unique<EnemySpawner>();
 }
 
 //Handles user input
@@ -95,19 +94,17 @@ void Game::processEvents()
 void Game::update(sf::Time deltaTime)
 {
 	//check collisions	
-	if (enemy.get())
-	{
-		checkCollisions();
-	}
+	//if (enemy.get())
+	//{
+	//	checkCollisions();
+	//}
 
 	//player movement
 	updatePlayerMovement(deltaTime);
 
 	//enemy movement
-	if (enemy.get())
-	{
-		updateEnemyMovement(deltaTime);
-	}
+	updateEnemyMovement(deltaTime);
+	enemySpawner->spawnEnemies();
 
 	//view position
 	updateViewPosition();
@@ -116,7 +113,7 @@ void Game::update(sf::Time deltaTime)
 void Game::updatePlayerMovement(sf::Time deltaTime)
 {
 	sf::Vector2f movement = calculatePlayerMovement();
-	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds());
+	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds(), deltaTime);
 }
 
 sf::Vector2f Game::calculatePlayerMovement()
@@ -146,9 +143,7 @@ sf::Vector2f Game::calculatePlayerMovement()
 
 void Game::updateEnemyMovement(sf::Time deltaTime)
 {
-	sf::Vector2f direction = player->getCenterPosition() - enemy->getCenterPosition();
-	direction = normalizeVector(direction);
-	enemy->move(direction * deltaTime.asSeconds() * enemy->getMovementSpeed());
+	enemySpawner->moveEnemies(deltaTime, player->getCenterPosition());
 }
 
 sf::Vector2f Game::normalizeVector(sf::Vector2f vector)
@@ -219,10 +214,7 @@ void Game::render()
 	//draw everything
 	background->render(*mainWindow);
 	player->render(*mainWindow);
-	if (enemy.get())
-	{
-		enemy->render(*mainWindow);
-	}
+	enemySpawner->render(*mainWindow);
 
 	//display
 	mainWindow->display();
@@ -250,9 +242,8 @@ void Game::playerAttackSpell(sf::Vector2i mouseCords)
 
 void Game::checkCollisions()
 {
-	//std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> playerSpells = player->getPlayerSpells();
 	auto playerSpells = player->getPlayerSpells();
-	if (enemy.get())
+	/*if (enemy.get())
 	{
 		for (auto& spell : playerSpells)
 		{
@@ -267,5 +258,5 @@ void Game::checkCollisions()
 				}
 			}
 		}
-	}
+	}*/
 }

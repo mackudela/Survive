@@ -15,7 +15,7 @@ void Entity::initTexture(std::string texturePath)
 
 void Entity::initSprite()
 {
-	sprite.setTexture(texture);
+	sprite.setTexture(texture, true);
 }
 
 void Entity::update()
@@ -70,4 +70,9 @@ sf::Vector2f Entity::getCenterPosition()
 sf::Vector2u Entity::getTextureSize()
 {
 	return texture.getSize();
+}
+
+sf::Sprite Entity::getSprite()
+{
+	return sprite;
 }

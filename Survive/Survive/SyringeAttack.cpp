@@ -1,7 +1,7 @@
 #include "SyringeAttack.h"
 
-SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction, float damage) : 
-	direction(direction)
+SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction, float speed, float damage) : 
+	direction(direction), speed(speed)
 {
 	this->damage = damage;
 	initTexture(texturePath);
@@ -16,6 +16,11 @@ SyringeAttack::SyringeAttack(float posX, float posY, sf::Vector2f direction, flo
 sf::Vector2f SyringeAttack::getDirection()
 {
 	return direction;
+}
+
+float SyringeAttack::getSpeed()
+{
+	return speed;
 }
 
 bool SyringeAttack::isAlive()

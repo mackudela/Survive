@@ -11,7 +11,6 @@ class Entity
 {
 public:
 	const sf::Vector2f getPosition();
-
 	void update();
 	virtual void render(sf::RenderTarget& target);
 	virtual void move(const float x, const float y);
@@ -22,6 +21,7 @@ public:
 	sf::FloatRect getGlobalBounds();
 	sf::Vector2f getCenterPosition();
 	sf::Vector2u getTextureSize();
+	sf::Sprite getSprite();
 
 protected:
 	sf::Sprite sprite;

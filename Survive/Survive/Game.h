@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Background.h"
 #include "Enemy.h"
+#include "EnemySpawner.h"
 #include "SyringeAttack.h"
 
 const float g_viewCenterX = 960.f;
@@ -22,7 +23,7 @@ private:
 	void initView();
 	void initBackground();
 	void initPlayer();
-	void initEnemy();
+	void initEnemySpawner();
 
 	//updates
 	void processEvents();
@@ -45,7 +46,7 @@ private:
 	std::unique_ptr<sf::View> mainView;
 	std::unique_ptr<Player> player;
 	std::unique_ptr<Background> background;
-	std::unique_ptr<Enemy> enemy;
+	std::unique_ptr<EnemySpawner> enemySpawner;
 	
 	const std::string fontPath = "media\\fonts\\ARIAL.ttf";
 	bool isMovingUp;

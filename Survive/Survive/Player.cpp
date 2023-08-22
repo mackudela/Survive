@@ -37,13 +37,13 @@ void Player::attackSpell(sf::Vector2f direction)
 {
 	if (cooldownTimer.getElapsedTime().asSeconds() >= attackCooldown.asSeconds())
 	{
-		std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction, 50.f);
+		std::shared_ptr<SyringeAttack> syringeAttk = std::make_shared<SyringeAttack>(getCenterPosition().x, getCenterPosition().y, direction, 500.f, 50.f);
 		playerSpells.insert_or_assign(std::move(syringeAttk), "Syringe");
 		cooldownTimer.restart();
 	}
 }
 
-void Player::move(float x, float y)
+void Player::move(float x, float y, sf::Time deltaTime)
 {
 	//Move player
 	sprite.move(x, y);
@@ -51,7 +51,7 @@ void Player::move(float x, float y)
 	//Move player spells
 	for (auto const& spell : playerSpells)
 	{
-		spell.first->move(spell.first->getDirection());
+		spell.first->move(spell.first->getDirection() * deltaTime.asSeconds() * spell.first->getSpeed());
 	}
 }
 

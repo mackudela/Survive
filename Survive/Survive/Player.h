@@ -13,7 +13,7 @@ public:
 	float getMovementSpeed();
 	void render(sf::RenderTarget& target) override;
 	void attackSpell(sf::Vector2f direction);
-	void move(float x, float y) override;
+	void move(float x, float y, sf::Time deltaTime);
 	std::unordered_map<std::shared_ptr<SyringeAttack>, std::string> getPlayerSpells();
 	void destroySpell(std::shared_ptr<SyringeAttack> spell);
 
