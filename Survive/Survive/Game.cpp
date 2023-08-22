@@ -93,11 +93,7 @@ void Game::processEvents()
 //Updates the game logic
 void Game::update(sf::Time deltaTime)
 {
-	//check collisions	
-	//if (enemy.get())
-	//{
-	//	checkCollisions();
-	//}
+	checkCollisions();
 
 	//player movement
 	updatePlayerMovement(deltaTime);
@@ -243,20 +239,66 @@ void Game::playerAttackSpell(sf::Vector2i mouseCords)
 void Game::checkCollisions()
 {
 	auto playerSpells = player->getPlayerSpells();
-	/*if (enemy.get())
+	auto enemies = enemySpawner->getEnemies();
+	bool destroyedSpell = false;
+
+	for (auto& spell : playerSpells)
 	{
-		for (auto& spell : playerSpells)
+		destroyedSpell = false;
+		if (spell.first.use_count() != 1)
 		{
-			if (spell.first->checkCollision(enemy->getGlobalBounds()))
+			for (auto& enemy : enemies)
 			{
-				enemy->receiveDamage(spell.first->getDamage());
-				player->destroySpell(spell.first);
-				if (enemy->getHP() <= 0)
+				if (enemy.first.use_count() != 1 && !destroyedSpell)
 				{
-					enemy.reset();
-					return;
+					if (spell.first->checkCollision(enemy.first->getGlobalBounds()))
+					{
+						enemy.first->receiveDamage(spell.first->getDamage());
+
+						player->destroySpell(spell.first);
+						destroyedSpell = true;
+
+						if (enemy.first->getHP() <= 0)
+						{
+							enemySpawner->destroyEnemy(enemy.first);
+						}
+					}
 				}
 			}
 		}
-	}*/
+	}
+	//bool destroySpell = false;
+	//for (auto itSpells = playerSpells.begin(); itSpells != playerSpells.end();)
+	//{
+	//	if (itSpells->first.use_count() != 1)
+	//	{
+	//		for (auto itEnemies = enemies.begin(); itEnemies != enemies.end();)
+	//		{
+	//			if (itSpells->first.use_count() != 1 && itEnemies->first.use_count() != 1)
+	//			{
+	//				if (itSpells->first->checkCollision(itEnemies->first->getGlobalBounds()))
+	//				{
+	//					itEnemies->first->receiveDamage(itSpells->first->getDamage());
+	//					player->destroySpell(itSpells->first);
+	//					if (itEnemies->first->getHP() <= 0)
+	//					{
+	//						enemySpawner->destroyEnemy(itEnemies->first);
+	//						//enemies.erase(itEnemies++);
+	//					}
+	//					else
+	//					{
+	//						++itEnemies;
+	//					}
+	//					//playerSpells.erase(itSpells++);
+	//				}
+	//				else
+	//				{
+	//					++itEnemies;
+	//					//++itSpells;
+	//				}
+	//			}
+	//		}
+	//	}
+	//	++itSpells;
+	//}
 }

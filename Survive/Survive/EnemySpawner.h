@@ -12,6 +12,7 @@ public:
 	void spawnEnemies();
 	void moveEnemies(sf::Time deltaTime, sf::Vector2f playerPosition);
 	std::unordered_map<std::shared_ptr<Enemy>, std::string> getEnemies();
+	void destroyEnemy(std::shared_ptr<Enemy> enemy);
 
 private:
 	sf::Clock gameClock;

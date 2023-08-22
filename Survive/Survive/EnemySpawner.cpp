@@ -1,6 +1,6 @@
 #include "EnemySpawner.h"
 
-EnemySpawner::EnemySpawner() : spawnCooldown(sf::seconds(1.f))
+EnemySpawner::EnemySpawner() : spawnCooldown(sf::seconds(2.f))
 {
 	gameClock.restart();
 	spawnTimer.restart();
@@ -19,9 +19,17 @@ void EnemySpawner::spawnEnemies()
 {
 	if (spawnTimer.getElapsedTime().asSeconds() > spawnCooldown.asSeconds())
 	{
-		std::shared_ptr<RedVirus> enemy = std::make_shared<RedVirus>(100, 100);
-		enemies.insert_or_assign(std::move(enemy), "Enemy");
-		spawnTimer.restart();
+		if (gameClock.getElapsedTime().asSeconds() > 10) {
+			std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+			enemies.insert_or_assign(std::move(enemy), "Enemy");
+			spawnTimer.restart();
+		} 
+		else
+		{
+			std::shared_ptr<RedVirus> enemy = std::make_shared<RedVirus>(100, 100);
+			enemies.insert_or_assign(std::move(enemy), "Enemy");
+			spawnTimer.restart();
+		}
 	}
 }
 
@@ -38,6 +46,11 @@ void EnemySpawner::moveEnemies(sf::Time deltaTime, sf::Vector2f playerPosition)
 std::unordered_map<std::shared_ptr<Enemy>, std::string> EnemySpawner::getEnemies()
 {
 	return enemies;
+}
+
+void EnemySpawner::destroyEnemy(std::shared_ptr<Enemy> enemy)
+{
+	enemies.erase(enemies.find(enemy));
 }
 
 sf::Vector2f EnemySpawner::normalizeVector(sf::Vector2f vector)
