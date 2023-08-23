@@ -245,7 +245,7 @@ void Game::checkCollisions()
 	for (auto& spell : playerSpells)
 	{
 		destroyedSpell = false;
-		if (spell.first.use_count() != 1)
+		if (spell.first.use_count() != 1 && spell.second == "Syringe")
 		{
 			for (auto& enemy : enemies)
 			{
@@ -267,38 +267,4 @@ void Game::checkCollisions()
 			}
 		}
 	}
-	//bool destroySpell = false;
-	//for (auto itSpells = playerSpells.begin(); itSpells != playerSpells.end();)
-	//{
-	//	if (itSpells->first.use_count() != 1)
-	//	{
-	//		for (auto itEnemies = enemies.begin(); itEnemies != enemies.end();)
-	//		{
-	//			if (itSpells->first.use_count() != 1 && itEnemies->first.use_count() != 1)
-	//			{
-	//				if (itSpells->first->checkCollision(itEnemies->first->getGlobalBounds()))
-	//				{
-	//					itEnemies->first->receiveDamage(itSpells->first->getDamage());
-	//					player->destroySpell(itSpells->first);
-	//					if (itEnemies->first->getHP() <= 0)
-	//					{
-	//						enemySpawner->destroyEnemy(itEnemies->first);
-	//						//enemies.erase(itEnemies++);
-	//					}
-	//					else
-	//					{
-	//						++itEnemies;
-	//					}
-	//					//playerSpells.erase(itSpells++);
-	//				}
-	//				else
-	//				{
-	//					++itEnemies;
-	//					//++itSpells;
-	//				}
-	//			}
-	//		}
-	//	}
-	//	++itSpells;
-	//}
 }
