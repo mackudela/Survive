@@ -240,24 +240,41 @@ void Game::checkCollisions()
 {
 	auto playerSpells = player->getPlayerSpells();
 	auto enemies = enemySpawner->getEnemies();
-	bool destroyedSpell = false;
+	bool destroyedSyringe = false;
 
 	for (auto& spell : playerSpells)
 	{
-		destroyedSpell = false;
+		destroyedSyringe = false;
 		if (spell.first.use_count() != 1 && spell.second == "Syringe")
 		{
 			for (auto& enemy : enemies)
 			{
-				if (enemy.first.use_count() != 1 && !destroyedSpell)
+				if (enemy.first.use_count() != 1 && !destroyedSyringe)
 				{
 					if (spell.first->checkCollision(enemy.first->getGlobalBounds()))
 					{
 						enemy.first->receiveDamage(spell.first->getDamage());
 
 						player->destroySpell(spell.first);
-						destroyedSpell = true;
+						destroyedSyringe = true;
 
+						if (enemy.first->getHP() <= 0)
+						{
+							enemySpawner->destroyEnemy(enemy.first);
+						}
+					}
+				}
+			}
+		}
+		else if (spell.first.use_count() != 1 && spell.second == "RotatingGuardian")
+		{
+			for (auto& enemy : enemies)
+			{
+				if (enemy.first.use_count() != 1)
+				{
+					if (spell.first->checkCollision(enemy.first->getGlobalBounds()))
+					{
+						enemy.first->receiveDamage(spell.first->getDamage());
 						if (enemy.first->getHP() <= 0)
 						{
 							enemySpawner->destroyEnemy(enemy.first);
