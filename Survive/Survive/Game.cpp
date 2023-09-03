@@ -110,6 +110,7 @@ void Game::updatePlayerMovement(sf::Time deltaTime)
 {
 	sf::Vector2f movement = calculatePlayerMovement();
 	player->move(movement.x * deltaTime.asSeconds(), movement.y * deltaTime.asSeconds(), deltaTime);
+	//mainView->move(movement * deltaTime.asSeconds());
 }
 
 sf::Vector2f Game::calculatePlayerMovement()
@@ -157,9 +158,9 @@ void Game::updateViewPosition()
 {
 	sf::Vector2f viewPosition = calculateViewPosition();
 	mainView->setCenter(
-		{ viewPosition.x + (player->getTextureSize().x / 2),
-		viewPosition.y + (player->getTextureSize().y / 2) });
-
+		{ viewPosition.x + (player->getTextureSize().x / 2.f),
+		viewPosition.y + (player->getTextureSize().y / 2.f) });
+	
 	mainWindow->setView(*mainView);
 }
 
@@ -167,36 +168,36 @@ sf::Vector2f Game::calculateViewPosition()
 {
 	sf::Vector2f viewPosition;
 
-	if (playerPosition.x > g_viewCenterX - (player->getTextureSize().x / 2))
+	if (playerPosition.x > g_viewCenterX - (player->getTextureSize().x / 2.f))
 	{
-		if (playerPosition.x < g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2))
+		if (playerPosition.x < g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2.f))
 		{
 			viewPosition.x = playerPosition.x;
 		}
 		else
 		{
-			viewPosition.x = g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2);
+			viewPosition.x = g_backgroundWidth - g_viewCenterX - (player->getTextureSize().x / 2.f);
 		}
 	}
 	else
 	{
-		viewPosition.x = g_viewCenterX - (player->getTextureSize().x / 2);
+		viewPosition.x = g_viewCenterX - (player->getTextureSize().x / 2.f);
 	}
 
-	if (playerPosition.y > g_viewCenterY - (player->getTextureSize().y / 2))
+	if (playerPosition.y > g_viewCenterY - (player->getTextureSize().y / 2.f))
 	{
-		if (playerPosition.y < g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2))
+		if (playerPosition.y < g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2.f))
 		{
 			viewPosition.y = playerPosition.y;
 		}
 		else
 		{
-			viewPosition.y = g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2);
+			viewPosition.y = g_backgroundHeight - g_viewCenterY - (player->getTextureSize().y / 2.f);
 		}
 	}
 	else
 	{
-		viewPosition.y = g_viewCenterY - (player->getTextureSize().y / 2);
+		viewPosition.y = g_viewCenterY - (player->getTextureSize().y / 2.f);
 	}
 	return viewPosition;
 }
