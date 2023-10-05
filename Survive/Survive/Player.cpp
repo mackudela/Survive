@@ -2,8 +2,9 @@
 
 Player::Player() : playerSpeed(600.f), attackCooldown(sf::seconds(1.f))
 {
-	initTexture(texturePath);
-	initSprite();
+	//initTexture(texturePath);
+	//initSprite();
+	initAnimation();
 	cooldownTimer.restart();
 
 	initRotatingGuardian();
@@ -17,7 +18,8 @@ float Player::getMovementSpeed()
 void Player::render(sf::RenderTarget& target)
 {
 	//draw player
-	target.draw(sprite);
+	animation->draw(target);
+	//target.draw(sprite);
 
 	//draw player spells
 	for (auto it = playerSpells.begin(); it != playerSpells.end();)
@@ -55,7 +57,8 @@ void Player::attackSpell(sf::Vector2f direction)
 void Player::move(float x, float y, sf::Time deltaTime)
 {
 	//Move player
-	sprite.move(x, y);
+	//sprite.move(x, y);
+	animation->move(x, y, deltaTime);
 
 	//Move player spells
 	for (auto const& spell : playerSpells)
@@ -81,8 +84,48 @@ void Player::destroySpell(std::shared_ptr<Spell> spell)
 	playerSpells.erase(playerSpells.find(spell));
 }
 
+void Player::setPosition(const float x, const float y)
+{
+	animation->setPosition(x, y);
+}
+
+const sf::Vector2f Player::getPosition()
+{
+	return animation->getPosition();
+}
+
+bool Player::checkCollision(sf::FloatRect entity)
+{
+	return animation->checkCollisions(entity);
+}
+
+sf::FloatRect Player::getGlobalBounds()
+{
+	return animation->getGlobalBounds();
+}
+
+sf::Vector2f Player::getCenterPosition()
+{
+	return animation->getCenterPosition();
+}
+
+sf::Vector2u Player::getTextureSize()
+{
+	return animation->getTextureSize();
+}
+
+sf::Sprite Player::getSprite()
+{
+	return animation->getSprite();
+}
+
 void Player::initRotatingGuardian()
 {
 	std::shared_ptr<RotatingGuardian> spell = std::make_shared<RotatingGuardian>(0.01f);
 	playerSpells.insert_or_assign(std::move(spell), "RotatingGuardian");
+}
+
+void Player::initAnimation()
+{
+	animation = std::make_unique<Animation>(texturePath, 38, 0.2f);
 }
