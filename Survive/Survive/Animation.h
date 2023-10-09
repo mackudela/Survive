@@ -13,6 +13,7 @@ public:
 	void setPosition(float x, float y);
 	sf::Vector2f getPosition();
 	void move(float x, float y, sf::Time dt);
+	void move(sf::Vector2f direction, sf::Time dt);
 	void draw(sf::RenderTarget& window);
 	bool checkCollisions(sf::FloatRect entity);
 	sf::FloatRect getGlobalBounds();

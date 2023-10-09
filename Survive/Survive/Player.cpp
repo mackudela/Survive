@@ -1,9 +1,7 @@
 #include "Player.h"
 
-Player::Player() : playerSpeed(600.f), attackCooldown(sf::seconds(1.f))
+Player::Player() : playerSpeed(400.f), attackCooldown(sf::seconds(1.f))
 {
-	//initTexture(texturePath);
-	//initSprite();
 	initAnimation();
 	cooldownTimer.restart();
 
@@ -19,7 +17,6 @@ void Player::render(sf::RenderTarget& target)
 {
 	//draw player
 	animation->draw(target);
-	//target.draw(sprite);
 
 	//draw player spells
 	for (auto it = playerSpells.begin(); it != playerSpells.end();)
@@ -57,7 +54,6 @@ void Player::attackSpell(sf::Vector2f direction)
 void Player::move(float x, float y, sf::Time deltaTime)
 {
 	//Move player
-	//sprite.move(x, y);
 	animation->move(x, y, deltaTime);
 
 	//Move player spells

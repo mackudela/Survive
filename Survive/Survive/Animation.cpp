@@ -35,10 +35,16 @@ sf::Vector2f Animation::getPosition()
 	return sprite.getPosition();
 }
 
-void Animation::move(float x, float y, sf::Time dt)
+void Animation::move(float x, float y, sf::Time deltaTime)
 {
 	sprite.move(x, y);
-	update(dt);
+	update(deltaTime);
+}
+
+void Animation::move(sf::Vector2f direction, sf::Time deltaTime)
+{
+	sprite.move(direction);
+	update(deltaTime);
 }
 
 void Animation::draw(sf::RenderTarget& window)

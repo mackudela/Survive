@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy() : XP(10.f), currentHP(100.f), maxHP(100.f), movementSpeed(400.f)
+Enemy::Enemy() : XP(10.f), currentHP(100.f), maxHP(100.f), movementSpeed(250.f)
 {
 	initTexture(texturePath);
 	initSprite();
@@ -39,6 +39,12 @@ void Enemy::move(sf::Vector2f direction)
 	updateHpBar();
 }
 
+void Enemy::move(sf::Vector2f direction, sf::Time dt)
+{
+	sprite.move(direction * movementSpeed * dt.asSeconds());
+	updateHpBar();
+}
+
 void Enemy::receiveDamage(float damage)
 {
 	currentHP -= damage;
@@ -52,6 +58,19 @@ float Enemy::getHP()
 float Enemy::getXP()
 {
 	return XP;
+}
+
+sf::Vector2f Enemy::getCenterPosition() 
+{
+	sf::Vector2f position;
+	position.x = sprite.getPosition().x + (texture.getSize().x / 2);
+	position.y = sprite.getPosition().y + (texture.getSize().y / 2);
+	return position;
+}
+
+sf::FloatRect Enemy::getGlobalBounds()
+{
+	return sprite.getGlobalBounds();
 }
 
 void Enemy::updateHpBar()

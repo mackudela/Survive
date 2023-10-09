@@ -27,7 +27,7 @@ public:
 	sf::Sprite getSprite();
 
 private:
-	void initRotatingGuardian();	
+	void initRotatingGuardian();
 	void initAnimation();
 
 	const std::string texturePath = "media\\textures\\player\\playerIdle.png";

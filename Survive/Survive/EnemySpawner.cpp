@@ -19,11 +19,17 @@ void EnemySpawner::spawnEnemies()
 {
 	if (spawnTimer.getElapsedTime().asSeconds() > spawnCooldown.asSeconds())
 	{
-		if (gameClock.getElapsedTime().asSeconds() > 10) {
-			std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+		if (gameClock.getElapsedTime().asSeconds() > 5) {
+			std::shared_ptr<FluVirus> enemy = std::make_shared<FluVirus>(100, 100);
 			enemies.insert_or_assign(std::move(enemy), "Enemy");
 			spawnTimer.restart();
 		} 
+		else if(gameClock.getElapsedTime().asSeconds() > 3)
+		{
+			std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+			enemies.insert_or_assign(std::move(enemy), "Enemy");
+			spawnTimer.restart();
+		}
 		else
 		{
 			std::shared_ptr<RedVirus> enemy = std::make_shared<RedVirus>(100, 100);
@@ -39,7 +45,7 @@ void EnemySpawner::moveEnemies(sf::Time deltaTime, sf::Vector2f playerPosition)
 	{
 		sf::Vector2f direction = playerPosition - enemy.first->getCenterPosition();
 		direction = normalizeVector(direction);
-		enemy.first->move(direction * deltaTime.asSeconds() * enemy.first->getMovementSpeed());
+		enemy.first->move(direction, deltaTime);
 	}
 }
 

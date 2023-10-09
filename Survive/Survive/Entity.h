@@ -15,11 +15,12 @@ public:
 	virtual void render(sf::RenderTarget& target);
 	virtual void move(const float x, const float y);
 	virtual void move(sf::Vector2f direction);
+	virtual void move(sf::Vector2f direction, sf::Time deltaTime);
 	void setPosition(const float x, const float y);
 	void rotate(sf::Vector2f direction);
 	bool checkCollision(sf::FloatRect entity);
-	sf::FloatRect getGlobalBounds();
-	sf::Vector2f getCenterPosition();
+	virtual sf::FloatRect getGlobalBounds();
+	virtual sf::Vector2f getCenterPosition();
 	sf::Vector2u getTextureSize();
 	sf::Sprite getSprite();
 

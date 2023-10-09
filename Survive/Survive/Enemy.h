@@ -8,9 +8,12 @@ public:
 	float getMovementSpeed();
 	void render(sf::RenderTarget& target) override;
 	void move(sf::Vector2f direction) override;
+	void move(sf::Vector2f direction, sf::Time dt) override;
 	void receiveDamage(float damage);
 	float getHP();
 	float getXP();
+	sf::Vector2f getCenterPosition() override;
+	sf::FloatRect getGlobalBounds() override;
 
 protected:
 	float currentHP;
@@ -22,5 +25,5 @@ protected:
 
 	void initHPBar();
 	void renderHPBar(sf::RenderTarget& target);
-	void updateHpBar();
+	virtual void updateHpBar();
 };

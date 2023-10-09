@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include "Enemy.h"
 #include "RedVirus.h"
+#include "FluVirus.h"
 
 class EnemySpawner 
 {
